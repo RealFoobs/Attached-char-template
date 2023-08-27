@@ -1,0 +1,72 @@
+[Info]
+name = "Template"
+author = "Foobs"
+mugenversion = 1.0
+ikemenversion = 0.99        
+
+[Files]
+;sprite =
+anim = Template.air
+;sound =
+st = Template.def
+;st1 =
+
+;=========================================================================================
+; we override this state from the common files to avoid debug warnings due to remappal
+[Statedef 5900]
+type = S
+anim = -2
+
+[State 5900, transition]
+trigger1 = 1
+type = changestate
+value = 0
+
+;=========================================================================================
+[Statedef 0]
+type = S
+anim = -2
+
+;=========================================================================================
+; we override this state from the common files to avoid debug warnings when the fight is over
+[Statedef 175]
+type = S
+anim = -2
+
+;=========================================================================================
+[Statedef -4]
+
+; makes the attachedchar itself invulnerable
+[State ]
+ignorehitpause = 1
+trigger1 = !ishelper
+type = nothitby
+value = SCA
+
+; makes sure the camera does not follow the attachedchar
+[State ]
+ignorehitpause = 1
+trigger1 = !ishelper
+type = screenbound
+value = 0
+
+; makes sure characters can walk over the attachedchar
+[State ]
+ignorehitpause = 1
+trigger1 = !ishelper
+type = playerpush
+value = 0
+
+; prevents some unwanted behavior and debug warnings
+[State ]
+ignorehitpause = 1
+trigger1 = !ishelper
+type = assertspecial
+flag = nohardcodedkeys
+flag2 = noautoturn
+
+; prevents playable characters from facing the attachedchar
+[State ]
+ignorehitpause = 1
+trigger1 = !standby && !ishelper
+type = tagout
